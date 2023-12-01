@@ -14,24 +14,84 @@ struct Day01: AdventDay {
     // Calculate the sum of the first set of input data
     print("inside day1 part1")
 
-    var numbers: [Int] = []
-    for line in entities {
-      var firstDigitTest: Int = 0
-      if let firstDigit = line.first(where: { $0.isNumber }) {
-        firstDigitTest = Int(String(firstDigit))! * 10
-      }
-      if let lastDigit = line.last(where: { $0.isNumber }) {
-        numbers.append(firstDigitTest + Int(String(lastDigit))!)
-      }
-    }
+    // var numbers: [Int] = []
+    // for line in entities {
+    //   var firstDigitTest: Int = 0
+    //   if let firstDigit = line.first(where: { $0.isNumber }) {
+    //     firstDigitTest = Int(String(firstDigit))! * 10
+    //   }
+    //   if let lastDigit = line.last(where: { $0.isNumber }) {
+    //     numbers.append(firstDigitTest + Int(String(lastDigit))!)
+    //   }
+    // }
 
-    return numbers.reduce(0, { $0 + $1 })
+    // return numbers.reduce(0, { $0 + $1 })
   }
 
   // Replace this with your solution for the second part of the day's challenge.
   func part2() -> Any {
-    // Sum the maximum entries in each set of data
-    // entities.map { $0.max() ?? 0 }.reduce(0, +)
-    print("inside day1 part2")
+    let digits: [Int: String] = [
+      1: "one",
+      2: "two",
+      3: "three",
+      4: "four",
+      5: "five",
+      6: "six",
+      7: "seven",
+      8: "eight",
+      9: "nine",
+    ]
+
+    var numbers: [Int] = []
+
+    let test: [String] = [
+      ""
+      // "bbzhsmnmtf8kftwosevenxfkssgrcjthree",
+    ]
+
+    print(entities.count)
+    for line in entities {
+      // find first digit (int or string)
+      var firstDigit: Int = 0
+      var lowestBound: String.Index = line.endIndex
+      for (key, value) in digits {
+        if let keyRange = line.range(of: String(key)) {
+          if keyRange.lowerBound < lowestBound {
+            lowestBound = keyRange.lowerBound
+            firstDigit = key * 10
+          }
+
+        }
+        if let valueRange = line.range(of: value) {
+          if valueRange.lowerBound < lowestBound {
+            lowestBound = valueRange.lowerBound
+            firstDigit = key * 10
+          }
+        }
+      }
+
+      // find last digit (int or string)
+      var lastDigit: Int = 0
+      var uppestBound: String.Index = line.startIndex
+      for (key, value) in digits {
+        if let keyRange = line.range(of: String(key)) {
+          if keyRange.upperBound > uppestBound {
+            uppestBound = keyRange.upperBound
+            lastDigit = key
+          }
+
+        }
+        if let valueRange = line.range(of: value) {
+          if valueRange.upperBound > uppestBound {
+            uppestBound = valueRange.upperBound
+            lastDigit = key
+          }
+        }
+      }
+
+      numbers.append(firstDigit + lastDigit)
+    }
+
+    return numbers.reduce(0, { $0 + $1 })
   }
 }
