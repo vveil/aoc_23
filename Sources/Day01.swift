@@ -14,18 +14,18 @@ struct Day01: AdventDay {
     // Calculate the sum of the first set of input data
     print("inside day1 part1")
 
-    // var numbers: [Int] = []
-    // for line in entities {
-    //   var firstDigitTest: Int = 0
-    //   if let firstDigit = line.first(where: { $0.isNumber }) {
-    //     firstDigitTest = Int(String(firstDigit))! * 10
-    //   }
-    //   if let lastDigit = line.last(where: { $0.isNumber }) {
-    //     numbers.append(firstDigitTest + Int(String(lastDigit))!)
-    //   }
-    // }
+    var numbers: [Int] = []
+    for line in entities {
+      var firstDigitTest: Int = 0
+      if let firstDigit = line.first(where: { $0.isNumber }) {
+        firstDigitTest = Int(String(firstDigit))! * 10
+      }
+      if let lastDigit = line.last(where: { $0.isNumber }) {
+        numbers.append(firstDigitTest + Int(String(lastDigit))!)
+      }
+    }
 
-    // return numbers.reduce(0, { $0 + $1 })
+    return numbers.reduce(0, { $0 + $1 })
   }
 
   // Replace this with your solution for the second part of the day's challenge.
@@ -43,11 +43,6 @@ struct Day01: AdventDay {
     ]
 
     var numbers: [Int] = []
-
-    let test: [String] = [
-      ""
-      // "bbzhsmnmtf8kftwosevenxfkssgrcjthree",
-    ]
 
     print(entities.count)
     for line in entities {
