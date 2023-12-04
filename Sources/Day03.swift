@@ -93,7 +93,7 @@ struct Day03: AdventDay {
     var symbolDictMut = symbolDict
 
     for (lineIndex, symbols) in symbolDict {
-        for (symbolIndex, symbol) in symbols.enumerated() {
+      for (symbolIndex, symbol) in symbols.enumerated() {
         if lineIndex > 0 {
           for (_, number) in numberDict[lineIndex - 1]!.enumerated() {
             let numberIndices = number.lowerIndex...number.upperIndex
@@ -127,7 +127,7 @@ struct Day03: AdventDay {
 
     for (_, symbols) in symbolDictMut {
       for symbol in symbols {
-          print(symbol.adjacentNumbers)
+        print(symbol.adjacentNumbers)
         if symbol.adjacentNumbers.count == 2 {
           partNumbers.append(symbol.adjacentNumbers.reduce(1, { $0 * $1 }))
         }
