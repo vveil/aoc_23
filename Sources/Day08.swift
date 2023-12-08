@@ -93,34 +93,74 @@ struct Day08: AdventDay {
     return turns
   }
 
-  func part2() -> Any {
+  func part2Slow() -> Any {
 
     let instructions = getInstructions(input: entities[0])
     let way = convertInputToTuples(input: entities[1].components(separatedBy: "\n"))
 
     var currentPos: [String] = way.keys.filter({ $0.last == "A" })
+
     var turns = 0
-
     var instructionsIndex = 0
-
-    print(
-      currentPos.allSatisfy({ pos in
-        pos.hasSuffix("A")
-      }))
-
-    while !currentPos.allSatisfy({ pos in
-      pos.last == "Z"
-    }) {
+    var cont = true
+    while cont {
       if instructionsIndex == instructions.count {
         instructionsIndex = 0
       }
+      turns += 1
+      cont = false
       currentPos = currentPos.map({ pos in
-        turns += 1
-        return way[pos]![instructions[instructionsIndex]]
+        let newPos = way[pos]![instructions[instructionsIndex]]
+        newPos.last != "Z" ? cont = true : ()
+        return newPos
       })
       instructionsIndex += 1
     }
 
     return turns
+  }
+
+  func greatestCommonDivider(_ a: Int, _ b: Int) -> Int {
+    var a = a
+    var b = b
+    while b != 0 {
+      let temp = b
+      b = a % b
+      a = temp
+    }
+    return a
+  }
+
+  func leastCommonMultiplier(_ a: Int, _ b: Int) -> Int {
+    return a / greatestCommonDivider(a, b) * b
+  }
+
+  func leastCommonMultiplierOf(_ array: [Int]) -> Int {
+    array.reduce(1, { leastCommonMultiplier($0, $1) })
+  }
+
+  func part2() -> Any {
+    let instructions = getInstructions(input: entities[0])
+    let way = convertInputToTuples(input: entities[1].components(separatedBy: "\n"))
+
+    let startPos: [String] = way.keys.filter({ $0.last == "A" })
+
+    var turns: [Int] = []
+    for pos in startPos {
+      var current = pos
+      var instructionsIndex = 0
+      var turn = 0
+      while current.last != "Z" {
+        if instructionsIndex == instructions.count {
+          instructionsIndex = 0
+        }
+        let instruction = instructions[instructionsIndex]
+        current = way[current]![instruction]
+        instructionsIndex += 1
+        turn += 1
+      }
+      turns.append(turn)
+    }
+    return leastCommonMultiplierOf(turns)
   }
 }
