@@ -131,12 +131,12 @@ struct Day08: AdventDay {
     return a
   }
 
-  func leastCommonMultiplier(_ a: Int, _ b: Int) -> Int {
+  func leastCommonMultiple(_ a: Int, _ b: Int) -> Int {
     return a / greatestCommonDivider(a, b) * b
   }
 
-  func leastCommonMultiplierOf(_ array: [Int]) -> Int {
-    array.reduce(1, { leastCommonMultiplier($0, $1) })
+  func leastCommonMultipleOf(_ array: [Int]) -> Int {
+    array.reduce(1, { leastCommonMultiple($0, $1) })
   }
 
   func part2() -> Any {
@@ -161,6 +161,6 @@ struct Day08: AdventDay {
       }
       turns.append(turn)
     }
-    return leastCommonMultiplierOf(turns)
+    return leastCommonMultipleOf(turns)
   }
 }

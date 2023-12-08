@@ -19,7 +19,7 @@ struct AdventOfCode: AsyncParsableCommand {
   var day: Int?
 
   @Flag(help: "Benchmark the time taken by the solution")
-  var benchmark: Bool = false
+  var benchmark: Bool = true
 
   /// The selected day, or the latest day if no selection is provided.
   var selectedChallenge: any AdventDay {
