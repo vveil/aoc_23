@@ -11,6 +11,8 @@ let allChallenges: [any AdventDay] = [
   Day06(),
   Day07(),
   Day08(),
+  Day09(),
+  Day10(),
 ]
 
 @main
@@ -19,7 +21,7 @@ struct AdventOfCode: AsyncParsableCommand {
   var day: Int?
 
   @Flag(help: "Benchmark the time taken by the solution")
-  var benchmark: Bool = true
+  var benchmark: Bool = false
 
   /// The selected day, or the latest day if no selection is provided.
   var selectedChallenge: any AdventDay {
